@@ -141,7 +141,7 @@
 - [x] T037 [US2] `PACKING_LIST` fields (packages, weights, volume)
 - [x] T038 [US2] Wire `useCreateDocument` + `useUpdateDocument` — edit existing DRAFT row
 - [x] T039 [US2] Client validation فارسی — required fields per type before submit
-- [ ] T040 [US2] Non-blocking warning when duplicate same-type doc exists on shipment
+- [x] T040 [US2] Non-blocking warning when duplicate same-type doc exists on shipment
 
 **Checkpoint**: Three document types creatable as DRAFT
 
@@ -153,10 +153,10 @@
 
 **Independent Test**: finalize DRAFT BL → `BL-000001`, status FINALIZED, no edit
 
-- [ ] T041 [US3] `document-finalize-btn` on DRAFT rows + confirm dialog
-- [ ] T042 [US3] Wire `useFinalizeDocument` — display allocated `docNumber` after success
-- [ ] T043 [US3] Disable form edit + delete on FINALIZED/AMENDED — message «از amend استفاده کنید» (amend UI خارج از scope)
-- [ ] T044 [US3] Surface 409 when shipment `CLOSED` on create/finalize
+- [x] T041 [US3] `document-finalize-btn` on DRAFT rows + confirm dialog
+- [x] T042 [US3] Wire `useFinalizeDocument` — display allocated `docNumber` after success
+- [x] T043 [US3] Disable form edit + delete on FINALIZED/AMENDED — message «از amend استفاده کنید» (amend UI خارج از scope)
+- [x] T044 [US3] Surface 409 when shipment `CLOSED` on create/finalize
 
 **Checkpoint**: Full create→finalize path works in UI
 
