@@ -81,9 +81,9 @@
 
 **Repo**: Backend | **Depends on**: B4
 
-- [ ] T023 Extend `e2e/tests/documents-api.spec.ts` — create BL DRAFT → patch → finalize → assert `docNumber` matches `/^BL-\d{6}$/` → verify `valid:true`
-- [ ] T024 [P] E2E amend — `POST .../amend` on FINALIZED → new DRAFT + source `AMENDED` (no UI)
-- [ ] T025 [P] E2E regression — `POST /documents/upload` + `POST /documents/generate-locked-pdf` still succeed
+- [x] T023 Extend `e2e/tests/documents-api.spec.ts` — create BL DRAFT → patch → finalize → assert `docNumber` matches `/^BL-\d{6}$/` → verify `valid:true`
+- [x] T024 [P] E2E amend — `POST .../amend` on FINALIZED → new DRAFT + source `AMENDED` (no UI)
+- [x] T025 [P] E2E regression — `POST /documents/upload` + `POST /documents/generate-locked-pdf` still succeed
 
 **Checkpoint**: Playwright documents suite green → proceed T0
 
@@ -95,7 +95,7 @@
 
 **⚠️ CRITICAL**: No F* tasks until T0 pass + user sign-off
 
-- [ ] T0 Backend Live Verification — per `quickstart.md` T0 Smoke: migration applied؛ `POST/PATCH/finalize` BL؛ `docNumber` like `BL-000001` only after finalize؛ DRAFT has `docNumber:null`؛ `GET /verify/:id` → `valid:true`؛ amend API smoke (optional); upload/commitment regression
+- [x] T0 Backend Live Verification — per `quickstart.md` T0 Smoke: migration applied؛ `POST/PATCH/finalize` BL/INV/PL؛ `docNumber` like `BL-000001` only after finalize؛ DRAFT has `docNumber:null`؛ `GET /verify/:id` → `valid:true`؛ amend API smoke؛ upload/commitment regression — **E2E green 12/12 on Docker Postgres (awaiting user sign-off for F1)**
 
 **Checkpoint**: User confirms T0 → Phase F1
 
