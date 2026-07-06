@@ -151,7 +151,23 @@
 **Side effects**:
 - PDF stored via `StorageService`
 - `DocumentAccessLog` action `CREATE` or `FINALIZE`
-- QR in PDF points to `/api/verify/{id}`
+- QR in PDF points to `{APP_ORIGIN}/verify/{id}` (public HTML page; see below)
+
+---
+
+## GET /verify/:documentId *(frontend — public HTML)*
+
+**Auth**: none
+
+**Purpose**: Human-readable verification for QR scanners (customs, banks, external parties). Fetches `GET /api/verify/:documentId` server-side/client-side and renders branded result — **not** raw JSON.
+
+**URL**: `{NEXTAUTH_URL}/verify/{documentId}` (e.g. `http://localhost:3000/verify/clxxx`)
+
+**Displays** (non-sensitive only): valid/invalid status, document type, doc number, issued date, issuer legal name, SHA-256 fingerprint. No prices, customer PII, or party names.
+
+**testids**: `document-verify-page`, `document-verify-status-valid` | `document-verify-status-invalid`
+
+**ERP QR / copy link**: `getVerifyUrl(id)` → `/verify/{id}` (same URL as PDF QR after B3 base URL fix)
 
 **Errors**:
 - 400 — missing required data fields for PDF template
@@ -271,7 +287,8 @@ Frontend: نمایش `message` در error box rose.
 | `document-form` | `POST` or `PATCH` |
 | `document-finalize-btn` | `POST .../finalize` |
 | `document-download-btn` | `GET .../download` |
-| `document-qr-preview` | client render URL `/api/verify/{id}` |
+| `document-qr-code` | QR encodes `/verify/{id}` (public page) |
+| `document-verify-link` | copy `/verify/{id}` |
 
 ---
 

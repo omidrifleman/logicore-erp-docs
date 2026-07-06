@@ -179,7 +179,7 @@
 
 **Goal**: نمایش QR و لینک verify
 
-**Independent Test**: QR scans to `/api/verify/{id}` with `valid:true`
+**Independent Test**: QR scans to `/verify/{id}` → human page; API `valid:true`
 
 - [x] T047 [US5] `document-qr-preview` — `qrcode.react` rendering verify URL for FINALIZED docs
 - [x] T048 [US5] Optional `document-detail-drawer` — show `fileHash`, `issuedAt`, verify link (no sensitive data)
