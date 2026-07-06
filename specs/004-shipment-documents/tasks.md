@@ -36,14 +36,14 @@
 
 **Repo**: Backend | **Depends on**: B1
 
-- [ ] T005 Create `nestjs-backend/src/modules/document/dto/create-document.dto.ts` — `shipmentId`, `type` (BL|INV|PL), `direction?`, `language?`, `data` with nested validators per type
-- [ ] T006 Create `nestjs-backend/src/modules/document/dto/update-document.dto.ts` — partial `direction`, `language`, `data` merge
-- [ ] T007 Create `nestjs-backend/src/modules/document/dto/amend-document.dto.ts` — optional `data` override (API-only v1)
-- [ ] T008 Implement `DocumentService.create()` in `document.service.ts` — `status=DRAFT`, `docNumber=null`, reject if shipment `CLOSED`
-- [ ] T009 Implement `DocumentService.update()` — only `status===DRAFT`; shallow-merge `data`; 409 otherwise
-- [ ] T010 Implement `DocumentService.amend()` — source `FINALIZED`→`AMENDED`, new `DRAFT` with `supersedesId` (**API-only — no ERP UI in v1**)
-- [ ] T011 Extend `tenant.service.ts` `syncSequenceCounter` — branches for `DOCUMENT_BL`/`DOCUMENT_INV`/`DOCUMENT_PL` healing from `Document.docNumber` prefix
-- [ ] T012 Add `allocateDocNumber(tx, tenantId, type)` in `document.service.ts` — maps type→prefix (`BL`/`INV`/`PL`) + `nextSequence`; **callable only from finalize**
+- [x] T005 Create `nestjs-backend/src/modules/document/dto/create-document.dto.ts` — `shipmentId`, `type` (BL|INV|PL), `direction?`, `language?`, `data` with nested validators per type
+- [x] T006 Create `nestjs-backend/src/modules/document/dto/update-document.dto.ts` — partial `direction`, `language`, `data` merge
+- [x] T007 Create `nestjs-backend/src/modules/document/dto/amend-document.dto.ts` — optional `data` override (API-only v1)
+- [x] T008 Implement `DocumentService.create()` in `document.service.ts` — `status=DRAFT`, `docNumber=null`, reject if shipment `CLOSED`
+- [x] T009 Implement `DocumentService.update()` — only `status===DRAFT`; shallow-merge `data`; 409 otherwise
+- [x] T010 Implement `DocumentService.amend()` — source `FINALIZED`→`AMENDED`, new `DRAFT` with `supersedesId` (**API-only — no ERP UI in v1**)
+- [x] T011 Extend `tenant.service.ts` `syncSequenceCounter` — branches for `DOCUMENT_BL`/`DOCUMENT_INV`/`DOCUMENT_PL` healing from `Document.docNumber` prefix
+- [x] T012 Add `allocateDocNumber(tx, tenantId, type)` in `document.service.ts` — maps type→prefix (`BL`/`INV`/`PL`) + `nextSequence`; **callable only from finalize**
 
 **Checkpoint**: create/patch/amend unit-testable via service (no PDF yet)
 
