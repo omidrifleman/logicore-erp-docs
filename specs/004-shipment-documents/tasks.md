@@ -135,12 +135,12 @@
 
 **Independent Test**: create DRAFT → appears in list with `docNumber` null
 
-- [ ] T034 [US2] Document modal — `document-form`, `document-type-select`, `document-create-btn` trigger
-- [ ] T035 [US2] `BILL_OF_LADING` fields + prefill from shipment (shipper/consignee, vessel, voyage, ports, cargo)
-- [ ] T036 [US2] `COMMERCIAL_INVOICE` fields + prefill (buyer, currency, lineItems)
-- [ ] T037 [US2] `PACKING_LIST` fields (packages, weights, volume)
-- [ ] T038 [US2] Wire `useCreateDocument` + `useUpdateDocument` — edit existing DRAFT row
-- [ ] T039 [US2] Client validation فارسی — required fields per type before submit
+- [x] T034 [US2] Document modal — `document-form`, `document-type-select`, `document-create-btn` trigger
+- [x] T035 [US2] `BILL_OF_LADING` fields + prefill from shipment (shipper/consignee, vessel, voyage, ports, cargo)
+- [x] T036 [US2] `COMMERCIAL_INVOICE` fields + prefill (buyer, currency, lineItems)
+- [x] T037 [US2] `PACKING_LIST` fields (packages, weights, volume)
+- [x] T038 [US2] Wire `useCreateDocument` + `useUpdateDocument` — edit existing DRAFT row
+- [x] T039 [US2] Client validation فارسی — required fields per type before submit
 - [ ] T040 [US2] Non-blocking warning when duplicate same-type doc exists on shipment
 
 **Checkpoint**: Three document types creatable as DRAFT
