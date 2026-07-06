@@ -67,11 +67,11 @@
 
 **Repo**: Backend | **Depends on**: B3
 
-- [ ] T018 Implement `DocumentService.finalize()` in `document.service.ts` — validate `data` → `allocateDocNumber()` → PDF → `StorageService.write` → set `fileHash`, `status=FINALIZED`, `isWatermarked`, `issuedAt`; **docNumber assigned ONLY here** (`BL-000001` pattern)
-- [ ] T019 Extend `document.controller.ts` — `POST /documents`, `PATCH /:id`, `POST /:id/finalize`, `POST /:id/amend` (static routes before `:id` conflict; preserve upload/generate-locked-pdf)
-- [ ] T020 Extend `findAll`/`findOne` in `document.service.ts` — return `direction`, `language`, `status`, `data`; `isLocked` from status
-- [ ] T021 Update `prisma/20-verify-function.sql` (if needed) so `app.verify_document` reflects finalized MVP documents
-- [ ] T022 Verify `remove()` blocks `FINALIZED`/`AMENDED` and regression on existing upload/download/delete DRAFT
+- [x] T018 Implement `DocumentService.finalize()` in `document.service.ts` — validate `data` → `allocateDocNumber()` → PDF → `StorageService.write` → set `fileHash`, `status=FINALIZED`, `isWatermarked`, `issuedAt`; **docNumber assigned ONLY here** (`BL-000001` pattern)
+- [x] T019 Extend `document.controller.ts` — `POST /documents`, `PATCH /:id`, `POST /:id/finalize`, `POST /:id/amend` (static routes before `:id` conflict; preserve upload/generate-locked-pdf)
+- [x] T020 Extend `findAll`/`findOne` in `document.service.ts` — return `direction`, `language`, `status`, `data`; `isLocked` from status
+- [x] T021 Update `prisma/20-verify-function.sql` (if needed) so `app.verify_document` reflects finalized MVP documents
+- [x] T022 Verify `remove()` blocks `FINALIZED`/`AMENDED` and regression on existing upload/download/delete DRAFT
 
 **Checkpoint**: Full backend API ready for T0
 
