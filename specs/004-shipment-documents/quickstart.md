@@ -5,7 +5,7 @@
 ## Prerequisites
 
 1. Docker Postgres — `Shipping-Project-V2/e2e/docker-compose.yml`
-2. NestJS backend `:3001` — **با migration جدید Document** (Phase B1)
+2. NestJS backend `:3001` — **با migration جدید Document** (Phase B1+)
 3. Frontend `:3000` — `BACKEND_URL=http://localhost:3001`
 4. Login: `maryam@logicore.com` / `maryam123` → workspace «سیر راه آبی»
 
@@ -18,142 +18,124 @@ npm run start:dev
 npm run dev
 ```
 
-## T0 Smoke (after Backend B5 — before Frontend F1)
+---
+
+## T0 Smoke (Backend — before Frontend F1)
 
 ```powershell
-# Obtain TOKEN from login cookie or API
-
 $SHIPMENT_ID = "<existing-shipment-uuid>"
 $BASE = "http://localhost:3001"
-
-# 1. Create BL draft
-curl -X POST "$BASE/api/documents" `
-  -H "Authorization: Bearer $TOKEN" `
-  -H "Content-Type: application/json" `
-  -d "{\"shipmentId\":\"$SHIPMENT_ID\",\"type\":\"BILL_OF_LADING\",\"language\":\"FA\",\"data\":{\"shipper\":\"Shipper Co\",\"consignee\":\"Consignee Co\",\"vesselName\":\"TEST VESSEL\",\"portOfLoading\":\"BND\",\"portOfDischarge\":\"DXB\",\"cargoDescription\":\"Test cargo\"}}"
-
-# Save DOCUMENT_ID from response
-
-# 2. Patch draft
-curl -X PATCH "$BASE/api/documents/$DOCUMENT_ID" `
-  -H "Authorization: Bearer $TOKEN" `
-  -H "Content-Type: application/json" `
-  -d "{\"data\":{\"remarks\":\"T0 test\"}}"
-
-# 3. Finalize
-curl -X POST "$BASE/api/documents/$DOCUMENT_ID/finalize" `
-  -H "Authorization: Bearer $TOKEN" `
-  -H "Content-Type: application/json" `
-  -d "{}"
-
-# Expect: status FINALIZED, docNumber matches BL-000001 pattern (6-digit suffix, assigned ONLY on finalize)
-
-# 4. Download
-curl -o test-bl.pdf "$BASE/api/documents/$DOCUMENT_ID/download" `
-  -H "Authorization: Bearer $TOKEN"
-
-# 5. Public verify
-curl "$BASE/api/verify/$DOCUMENT_ID"
-# Expect: valid: true, docNumber, sha256
-
-# 6. Regression — list
-curl "$BASE/api/documents?shipmentId=$SHIPMENT_ID&page=1&limit=20" `
-  -H "Authorization: Bearer $TOKEN"
-
-# 7. Regression — upload still works
-# curl -F "file=@test.pdf" -F "shipmentId=$SHIPMENT_ID" -F "type=PACKING_LIST" ...
+# ... POST create → PATCH → finalize → download → verify API
 ```
 
-**Checkpoint**: کاربر تأیید T0 → شروع Frontend F1
+**API verify (JSON):** `curl "$BASE/api/verify/$DOCUMENT_ID"` → `valid: true`
+
+**Checkpoint**: E2E `documents-api.spec.ts` 12/12 ✅ — see [CHANGES.md](./CHANGES.md)
 
 ---
 
-## Manual Validation (Frontend)
+## Manual Validation (Frontend US1–US5)
 
 ### US1 — Document list
 
-1. `/shipments` → open shipment with seed data
+1. `/shipments` → open any shipment
 2. Click `shipment-tab-documents`
 3. `shipment-documents-panel` visible
-4. Empty state OR `document-list` rows with status badges
-5. Loading spinner on slow network
+4. Empty state OR `document-list` with `document-row-{id}`, status badges (DRAFT slate / FINALIZED emerald / AMENDED yellow)
+5. Loading: amber `Loader2` on slow network
 
-### US2 — Create document
+### US2 — Create / edit DRAFT
 
-1. `document-create-btn` → `document-form`
-2. Select `BILL_OF_LADING` in `document-type-select`
-3. Verify prefill: vessel, ports from shipment
-4. Submit → row appears with `DRAFT` badge
-5. Repeat for `COMMERCIAL_INVOICE` and `PACKING_LIST`
+1. `document-create-btn` → `document-type-select` (BL / INV / PL)
+2. Duplicate warning (amber) if same-type DRAFT/FINALIZED exists — **non-blocking**
+3. `document-form` with type-specific fields + prefill from shipment
+4. First submit → `POST /documents` (DRAFT, `docNumber` null)
+5. Further saves → `PATCH /documents/:id`; form stays open
+6. Repeat for `COMMERCIAL_INVOICE` and `PACKING_LIST`
 
 ### US3 — Finalize
 
-1. Open DRAFT row → `document-finalize-btn`
-2. Confirm dialog → finalize succeeds
-3. Status → `FINALIZED`, `docNumber` visible
-4. Form fields read-only; delete disabled
+1. Complete required fields → `document-finalize-btn` enabled (form or row)
+2. `document-finalize-confirm-dialog` → `document-finalize-confirm-btn`
+3. Status → `FINALIZED`, `docNumber` e.g. `BL-000001`
+4. Form read-only; amend message (no amend UI in v1)
 
 ### US4 — Download PDF
 
-1. `document-download-btn` on FINALIZED doc
-2. PDF saves; opens with QR corner
-3. Network: `GET .../download` → 200
+1. `document-download-btn` or `document-row-download-{id}` on FINALIZED/AMENDED
+2. File saves as `{docNumber}.pdf` or `fileName`
+3. Spinner on button during download; `toast.error` on failure
 
 ### US5 — QR / Verify
 
-1. `document-qr-preview` shows QR
-2. Open `/api/verify/{id}` in browser (no auth)
-3. JSON shows `valid: true`, `docNumber`, `sha256`
+1. Open FINALIZED doc in form → `document-qr-code` + `document-verify-link`
+2. URL format: `http://localhost:3000/verify/{documentId}` (**HTML page**, not raw JSON)
+3. Open in browser **without login** → «این سند معتبر است» + type, number, date, issuer, hash
+4. Scan QR from ERP or from printed PDF (new finalize after verify-page deploy)
+5. API still available for machines: `GET /api/verify/{id}`
 
 ### Edge cases
 
 | Case | Expected |
 |------|----------|
-| CLOSED shipment | create/finalize blocked — rose error |
-| PATCH on FINALIZED | error message |
-| Second BL same shipment | warning (non-blocking) + allow |
-| Delete DRAFT | removed from list |
-| Delete FINALIZED | disabled / API 400 |
+| CLOSED shipment | banner + no create/finalize; API 409 |
+| PATCH on FINALIZED | 409 → rose error |
+| Duplicate same type | amber warning; creation allowed |
+| Delete DRAFT | removed (if implemented via API) |
+| Delete FINALIZED | disabled / API 400 locked |
+| Invalid `/verify/bad-id` | «سند یافت نشد» |
 
 ---
 
 ## Automated QA
 
 ```bash
-# Backend E2E (Shipping-Project-V2)
+# Backend E2E
 cd Shipping-Project-V2/e2e
-npx playwright test documents-api.spec.ts
+docker compose -f docker-compose.yml up -d
+CI=true npx playwright test documents-api.spec.ts
 
 # Frontend build
 cd Shipping
 npm run build
+
+# Backend build
+cd Shipping-Project-V2/production-ready/nestjs-backend
+npm run build
 ```
 
-### Visual QA (Polish)
+### Visual QA (Polish T051)
 
 ```bash
-# After capture keys added to visual-qa.mjs
+# Capture reference PNGs (dev + backend required)
+npm run capture
+
+# Compare
 npm run visual-qa:shipment-documents
+npm run visual-qa:shipment-documents-mobile
+# Optional (needs FINALIZED doc in seed):
+npm run visual-qa:document-verify
 ```
 
-Reference targets: `13-shipment-documents-desktop.png`, `14-shipment-documents-mobile.png` (to be added in tasks)
+References: `13-shipment-documents-desktop.png`, `14-shipment-documents-mobile.png`, `15-document-verify-desktop.png`
 
 ---
 
 ## Dual-repo commit notes
 
-| Repo | Expected changes |
-|------|-------------------|
-| `logicore-erp-backend` | Prisma migration, document module, pdf templates, e2e |
-| `logicore-erp-frontend` | `documents.ts`, hooks, `shipment-documents-panel`, detail tab |
+| Repo | Scope |
+|------|--------|
+| `logicore-erp-backend` | Prisma, document module, PDF, verify SQL, E2E |
+| `logicore-erp` (frontend) | documents lib/hooks, panel, form, verify page, `v0.3.0` |
 
-Tag suggestion after merge: backend patch/minor + frontend `v0.3.0`
+**Tag suggestion:** backend `v0.2.0` + frontend `v0.3.0`
 
 ---
 
 ## Notes
 
-- **T0 blocker**: Frontend work MUST NOT start until T0 passes on new endpoints
-- **Amend**: API tested in T0 step 8 (optional); no UI button in v1
-- **HTTP 200 check**: before Visual QA capture, verify page returns 200 (lesson from 003 wizard incident)
-- Existing `POST /api/documents/upload` and `generate-locked-pdf` — regression in T0
+- **docNumber**: `BL-000001` / `INV-000001` / `PL-000001` — **only on finalize**
+- **Amend**: API only — no UI button in v1
+- **Verify UX**: public HTML at `/verify/[id]` — see [CHANGES.md](./CHANGES.md) for deviation from original plan
+- **HTTP 200**: before Visual QA, confirm pages return 200 (lesson from 003 wizard)
+- Regression: `POST /api/documents/upload`, `generate-locked-pdf` unchanged

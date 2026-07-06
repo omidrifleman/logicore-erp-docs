@@ -192,12 +192,12 @@
 
 **Purpose**: Cross-cutting QA before merge
 
-- [ ] T049 [P] Validate all UI contract `data-testid`s from `contracts/documents-api.md`
-- [ ] T050 [P] Run `quickstart.md` manual checklist US1–US5 + edge cases (CLOSED, delete DRAFT)
-- [ ] T051 [P] Add `shipment-documents` + mobile keys to `design-reference/visual-qa.mjs` + capture `13-shipment-documents-desktop.png`, `14-shipment-documents-mobile.png`
-- [ ] T052 [P] Mobile smoke — documents tab usable on Pixel 5 viewport
-- [ ] T053 [P] `npm run build` (frontend) + backend `npm run build` — zero errors
-- [ ] T054 Update `quickstart.md` Notes — docNumber format, amend API-only, T0 results
+- [x] T049 [P] Validate all UI contract `data-testid`s from `contracts/documents-api.md`
+- [x] T050 [P] Run `quickstart.md` manual checklist US1–US5 + edge cases (CLOSED, delete DRAFT)
+- [x] T051 [P] Add `shipment-documents` + mobile keys to `design-reference/visual-qa.mjs` + capture `13-shipment-documents-desktop.png`, `14-shipment-documents-mobile.png`
+- [x] T052 [P] Mobile smoke — documents tab usable on Pixel 5 viewport
+- [x] T053 [P] `npm run build` (frontend) + backend `npm run build` — zero errors
+- [x] T054 Update `quickstart.md` Notes — docNumber format, amend API-only, T0 results
 
 ---
 
