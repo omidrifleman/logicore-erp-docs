@@ -53,11 +53,11 @@
 
 **Repo**: Backend | **Depends on**: B2
 
-- [ ] T013 Add `nestjs-backend/assets/fonts/Vazirmatn-Regular.ttf` for FA/BILINGUAL PDF embed
-- [ ] T014 Refactor `pdf.service.ts` — shared `drawHeaderFooterQrWatermark()` extracted from commitment PDF
-- [ ] T015 [P] Implement `generateBillOfLadingPdf()` in `pdf.service.ts`
-- [ ] T016 [P] Implement `generateCommercialInvoicePdf()` in `pdf.service.ts`
-- [ ] T017 [P] Implement `generatePackingListPdf()` in `pdf.service.ts`
+- [x] T013 Add `nestjs-backend/assets/fonts/Vazirmatn-Regular.ttf` for FA/BILINGUAL PDF embed
+- [x] T014 Refactor `pdf.service.ts` — shared `drawHeaderFooterQrWatermark()` extracted from commitment PDF
+- [x] T015 [P] Implement `generateBillOfLadingPdf()` in `pdf.service.ts`
+- [x] T016 [P] Implement `generateCommercialInvoicePdf()` in `pdf.service.ts`
+- [x] T017 [P] Implement `generatePackingListPdf()` in `pdf.service.ts`
 
 **Checkpoint**: Each template returns `{ buffer, hash, watermarkText }` + QR → `/api/verify/{id}`
 
