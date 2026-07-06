@@ -105,9 +105,9 @@
 
 **Repo**: Frontend | **Depends on**: T0 ✅
 
-- [ ] T026 Create `src/lib/documents.ts` — types, `fetchShipmentDocuments`, `createDocument`, `updateDocument`, `finalizeDocument`, `downloadDocument`, `deleteDocument`, `getVerifyUrl` (port from `Shipping-Project-V2/src/lib/api.ts` + new endpoints)
-- [ ] T027 Create `src/hooks/use-shipment-documents.ts` — `useShipmentDocuments`, `useCreateDocument`, `useUpdateDocument`, `useFinalizeDocument`, `useDownloadDocument`; invalidate `['shipment-documents', shipmentId]`
-- [ ] T028 Add `qrcode.react` to `package.json` for QR preview (US5)
+- [x] T026 Create `src/lib/documents.ts` — types, `fetchShipmentDocuments`, `createDocument`, `updateDocument`, `finalizeDocument`, `downloadDocument`, `deleteDocument`, `getVerifyUrl` (port from `Shipping-Project-V2/src/lib/api.ts` + new endpoints)
+- [x] T027 Create `src/hooks/use-shipment-documents.ts` — `useShipmentDocuments`, `useCreateDocument`, `useUpdateDocument`, `useFinalizeDocument`, `useDownloadDocument`; invalidate `['shipment-documents', shipmentId]`
+- [x] T028 Add `qrcode.react` to `package.json` for QR preview (US5)
 
 **Checkpoint**: API client + hooks compile
 
@@ -119,11 +119,11 @@
 
 **Independent Test**: باز کردن تب اسناد → لیست/empty/loading/error
 
-- [ ] T029 [US1] Create `src/components/erp/shipment-documents-panel.tsx` — `data-testid=shipment-documents-panel`, glass card shell
-- [ ] T030 [US1] Implement `document-list` + `document-row-{id}` rows — type label, `docNumber` (or «—» for DRAFT), status badge, `createdAt`
-- [ ] T031 [US1] Wire `shipment-detail.tsx` — replace placeholder with `<ShipmentDocumentsPanel shipmentId={...} shipment={...} />`
-- [ ] T032 [US1] Loading (`Loader2` amber), error rose box, empty state (`FileText` + `document-create-btn`)
-- [ ] T033 [US1] Status badges — DRAFT slate, FINALIZED emerald, AMENDED yellow per `statusPalettes`
+- [x] T029 [US1] Create `src/components/erp/shipment-documents-panel.tsx` — `data-testid=shipment-documents-panel`, glass card shell
+- [x] T030 [US1] Implement `document-list` + `document-row-{id}` rows — type label, `docNumber` (or «—» for DRAFT), status badge, `createdAt`
+- [x] T031 [US1] Wire `shipment-detail.tsx` — replace placeholder with `<ShipmentDocumentsPanel shipmentId={...} shipment={...} />`
+- [x] T032 [US1] Loading (`Loader2` amber), error rose box, empty state (`FileText` + `document-create-btn`)
+- [x] T033 [US1] Status badges — DRAFT slate, FINALIZED emerald, AMENDED yellow per `statusPalettes`
 
 **Checkpoint**: US1 independently testable
 
