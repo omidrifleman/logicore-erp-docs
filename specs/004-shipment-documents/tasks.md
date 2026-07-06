@@ -168,8 +168,8 @@
 
 **Independent Test**: download FINALIZED doc → valid PDF file
 
-- [ ] T045 [US4] `document-download-btn` — blob download via `downloadDocument`, filename from `docNumber` or `fileName`
-- [ ] T046 [US4] Show rose error on integrity failure (`fileHash` mismatch message)
+- [x] T045 [US4] `document-download-btn` — blob download via `downloadDocument`, filename from `docNumber` or `fileName`
+- [x] T046 [US4] Show rose error on integrity failure (`fileHash` mismatch message)
 
 **Checkpoint**: Download audited via backend access log
 
@@ -181,8 +181,8 @@
 
 **Independent Test**: QR scans to `/api/verify/{id}` with `valid:true`
 
-- [ ] T047 [US5] `document-qr-preview` — `qrcode.react` rendering verify URL for FINALIZED docs
-- [ ] T048 [US5] Optional `document-detail-drawer` — show `fileHash`, `issuedAt`, verify link (no sensitive data)
+- [x] T047 [US5] `document-qr-preview` — `qrcode.react` rendering verify URL for FINALIZED docs
+- [x] T048 [US5] Optional `document-detail-drawer` — show `fileHash`, `issuedAt`, verify link (no sensitive data)
 
 **Checkpoint**: US5 complete — full spec happy path
 

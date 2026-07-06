@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| Synced at | 2026-07-06 23:51 |
-| Checkpoint | phase-F4-complete |
+| Synced at | 2026-07-06 23:57 |
+| Checkpoint | phase-F5-complete |
 | Current feature | specs/004-shipment-documents |
 | Feature status | tasks-ready |
 | Frontend root | C:\Users\Omirax\Desktop\Shipping |
