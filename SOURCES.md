@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| Synced at | 2026-07-07 14:01 |
+| Synced at | 2026-07-07 14:02 |
 | Checkpoint | 004-shipment-documents-released |
 | Current feature | specs/004-shipment-documents |
 | Feature status | tasks-ready |

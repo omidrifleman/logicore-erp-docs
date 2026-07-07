@@ -53,4 +53,24 @@
 
 ---
 
-*آخرین به‌روزرسانی: ۱۴۰۵/۰۴/۱۶ — پس از close رسمی `002-shipments`*
+## BL-004 — `npm run capture` کامل: `finance-tab-match` حذف‌شده از UI
+
+| فیلد | مقدار |
+|------|--------|
+| **منبع** | Polish T051 / `design-reference/capture-screenshots.mjs` — release `004-shipment-documents` (۱۴۰۵/۰۴/۱۷) |
+| **اولویت** | Low |
+| **وضعیت** | Open — non-blocking |
+| **فیچر مرجع** | خارج از scope `004-shipment-documents` (004 بسته شد) |
+| **Repo** | `Shipping` (`design-reference/capture-screenshots.mjs`) |
+
+**شرح:** اسکریپت `npm run capture` پس از گرفتن `13-shipment-documents-desktop.png` منتظر `getByTestId('finance-tab-match')` می‌ماند؛ این testid در UI فعلی ERP وجود ندارد (ماژول finance بازطراحی شده). capture کامل روی finance/invoices/CRM متوقف می‌شود؛ PNGهای ۱۳–۱۵ و visual-qa مربوطه جداگانه گرفته و پاس شده‌اند.
+
+**اقدام پیشنهادی:**
+1. به‌روزرسانی `capture-screenshots.mjs` با selectorهای فعلی finance (یا ناوبری مستقیم به route)
+2. اجرای مجدد capture کامل برای baselineهای `06-finance` تا `08-crm`
+
+**معیار بسته‌شدن:** `npm run capture` بدون timeout از ابتدا تا `=== capture complete ===`.
+
+---
+
+*آخرین به‌روزرسانی: ۱۴۰۵/۰۴/۱۷ — پس از release `004-shipment-documents` (v0.3.0 / v0.2.0)*
